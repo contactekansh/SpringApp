@@ -8,6 +8,8 @@ on:
 jobs:
   job1:
     runs-on: ubuntu-latest
+    outputs:
+      stepsStatus: ${{ needs.job1.result }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -19,6 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Job1 status
-        run: echo "Job1 status: ${{ needs.job1.outputs.status }}"
+        run: echo "Job1 status: ${{ needs.job1.outputs.stepsStatus }}"
 
       # Add your job2 steps here
