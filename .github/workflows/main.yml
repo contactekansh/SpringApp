@@ -20,4 +20,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Print status of job1
-        run: "${{ job.status }}"
+        run: echo "${{ job.status }}"
