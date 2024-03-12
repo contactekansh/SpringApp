@@ -3,15 +3,13 @@ name: Two Jobs Workflow
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   job1:
     runs-on: ubuntu-latest
-    outputs:
-      stepsStatus: ${{ needs.job1.result }}
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
       # Add your job1 steps here
@@ -20,7 +18,10 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     steps:
-      - name: Print Job1 status
-        run: echo "Job1 status: ${{ needs.job1.outputs.stepsStatus }}"
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Print status of job1
+        run: echo "Job1 status: ${{ needs.job1.result }}"
 
       # Add your job2 steps here
