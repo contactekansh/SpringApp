@@ -19,6 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Job1 status
-        run: echo "Job1 status: ${{ job.status }}"
+        run: echo "Job1 status: ${{ needs.job1.outputs.status }}"
 
       # Add your job2 steps here
