@@ -1,32 +1,24 @@
-name: Maven Build with Cache
+name: Two Jobs Workflow
 
 on:
   push:
     branches:
       - master
-  
+
 jobs:
-  build:
-
+  job1:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Cache Maven dependencies
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
+      # Add your job1 steps here
 
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: "11"
-        distribution: "zulu"
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Job1 status
+        run: echo "Job1 status: ${{ job.status }}"
 
-    - name: Build with Maven
-      run: mvn -B clean package
+      # Add your job2 steps here
